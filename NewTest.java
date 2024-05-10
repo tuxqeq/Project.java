@@ -40,9 +40,10 @@ public class NewTest implements Command{
             FileWriter writer = new FileWriter(path);
             writer.write(content);
             writer.close();
+            new Tests(this.name + ".txt", new Content(content));
             System.out.println("File saved successfully!");
         } catch (IOException e) {
-            System.out.println("An error occurred while saving the file.");
+            System.out.println("saving new test java");
         }
     }
 
@@ -55,7 +56,9 @@ public class NewTest implements Command{
             return stream
                     .anyMatch(iter -> iter.getFileName().toString().equals(fileToFind));
 
-        } catch (IOException e) {}
+        } catch (IOException e) {
+            System.out.println("ifNotAvaliable newtest");
+        }
         return false;
     }
 
@@ -83,7 +86,7 @@ public class NewTest implements Command{
             try {
                 Files.createDirectories(startPath);
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("createDir newfile");
             }
         }
     }
