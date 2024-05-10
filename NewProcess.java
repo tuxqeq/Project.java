@@ -9,7 +9,7 @@ public class NewProcess {
 
         System.out.println("""
                 Input "new test" to create new test
-                Input "open file" to open new file
+                Input "open test" to open test
                 Input "go to checking module" to go to checking module
                 Input "exit" to exit
                 """);

@@ -8,13 +8,14 @@ import java.util.stream.Stream;
 
 public class NewTest implements Command{
     String name;
+    public Scanner scanner = new Scanner(System.in);
     public NewTest() {
         createDir("tests");
         name = newName();
     }
     @Override
     public void execute() {
-        Scanner scanner = new Scanner(System.in);
+        //Scanner scanner = new Scanner(System.in);
         StringBuilder sb = new StringBuilder();
         System.out.println("Thanks! Now you can start inputing content:\n"+
                 "(to stop inputing type \"stop\" in a new line and press enter)");
@@ -48,9 +49,9 @@ public class NewTest implements Command{
     }
 
 
-    public boolean IfNotAvaliable(String nameToCheck, String path) {
+    public static boolean IfNotAvaliable(String nameToCheck, String path) {
         Path startPath = Paths.get(path);
-        String fileToFind = nameToCheck + ".txt";
+        String fileToFind = nameToCheck;
 
         try (Stream<Path> stream = Files.walk(startPath)) {
             return stream
@@ -64,11 +65,12 @@ public class NewTest implements Command{
 
 
     public String newName(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the name for a test:");
-        String input = scanner.nextLine();
+        //Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the name for a test:\n"+
+                "(if you print a space only everything before it will be treated as filename)");
+        String input = scanner.next();
         name = input;
-        if(IfNotAvaliable(name, "./tests/")) {
+        if(IfNotAvaliable(name + ".txt", "./tests/")) {
             System.out.println("File with that name already exists.\n"+
                     "If you want to overwrite the file with that name input \"overwrite\"\n"+
                     "Otherwise press enter and input new name for your file");

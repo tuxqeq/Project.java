@@ -34,9 +34,6 @@ public class Tests extends File{
 
     @Override
     public String toString() {
-        return "Tests{" +
-                "name='" + name + '\'' +
-                ", content=" + content +
-                '}';
+        return "\"" + name + "\"";
     }
 }
