@@ -1,5 +1,7 @@
 public class GoToCheckMod implements Command{
-    public GoToCheckMod() {}
+    public GoToCheckMod() {
+        new MenuCheckMod();
+    }
 
     @Override
     public void execute() {

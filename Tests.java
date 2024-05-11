@@ -2,11 +2,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public class Tests extends File{
     String name;
     Content content;
+    ArrayList<String> linkedPaths;
     public Tests() {
         try(Stream<Path> stream = Files.walk(Paths.get("./tests/"))){
             stream.filter(Files::isRegularFile)
@@ -27,6 +29,10 @@ public class Tests extends File{
         this.content = content;
         addToCollection(this);
     }
+    public void link(String folderName){
+        this.linkedPaths.add(folderName);
+    }
+
     @Override
     String getPath() {
         return "./tests/"+name;

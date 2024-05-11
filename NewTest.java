@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class NewTest implements Command{
     String name;
     private final Scanner scanner = new Scanner(System.in);
+    Tests test;
     public NewTest() {
         createDir("tests");
         name = newName();
@@ -31,6 +32,9 @@ public class NewTest implements Command{
         if(scanner.nextLine().equals(Inputs.SAVE.getCommand())) {
             savingToFile(content);
         }
+        System.out.println("If you want to link the task to the folder where the locations are created input \"link\"\n"+
+                "or input stop if you dont want to link files");
+        acceptingLink();
     }
 
     public void savingToFile(String content) {
@@ -39,7 +43,7 @@ public class NewTest implements Command{
             FileWriter writer = new FileWriter(path);
             writer.write(content);
             writer.close();
-            new Tests(this.name + ".txt", new Content(content));
+            this.test = new Tests(this.name + ".txt", new Content(content));
             System.out.println("File saved successfully!");
         } catch (IOException e) {
             System.out.println("saving new test java");
@@ -50,7 +54,7 @@ public class NewTest implements Command{
         System.out.println("Enter the name for a test:\n"+
                 "(if you print a space only everything before it will be treated as filename)");
         name = scanner.next();
-        if(Command.ifNotAvaliable(name + ".txt", "./tests/")) {
+        if(Command.fileIsInDir(name + ".txt", "./tests/")) {
             System.out.println("""
                     File with that name already exists.
                     If you want to overwrite the file with that name input "overwrite"
@@ -71,6 +75,28 @@ public class NewTest implements Command{
             } catch (IOException e) {
                 System.out.println("createDir newfile");
             }
+        }
+    }
+    public void acceptingLink(){
+        switch (Inputs.toEnum(scanner.next())){
+            case LINK:
+                linkToFolder();
+                break;
+            case STOP:
+                break;
+            default:
+                System.out.println("Wrong command, try again");
+                acceptingLink();
+        }
+    }
+    public void linkToFolder(){
+        System.out.println("Please enter the name of the student to which folder you want to link the test");
+        String studentName = scanner.nextLine();
+        String path = "./Students/" + studentName;
+        if(Command.fileIsInDir(this.name, studentName)){
+            this.test.link(studentName + "/" + this.name);
+        }else{
+            System.out.println("Student has not provided solution for this task");
         }
     }
 }

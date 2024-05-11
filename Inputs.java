@@ -10,6 +10,7 @@ public enum Inputs {
     EDIT("edit"),
     INVALID("invalid"),
     CONTINUE("continue"),
+    LINK("link")
     ;
 
     private final String command;
