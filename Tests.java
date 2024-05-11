@@ -32,6 +32,10 @@ public class Tests extends File{
         return "./tests/"+name;
     }
 
+    public void setContent(Content content) {
+        this.content = content;
+    }
+
     @Override
     public String toString() {
         return "\"" + name + "\"";
