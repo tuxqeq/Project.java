@@ -1,6 +1,4 @@
 public class CommandImp {
-    public void execute() {
-    }
     public Command getCommand(String commandName){
         return switch (Inputs.toEnum(commandName)) {
             case Inputs.NEW_TEST -> new NewTest();

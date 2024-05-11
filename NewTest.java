@@ -4,18 +4,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
-import java.util.stream.Stream;
 
 public class NewTest implements Command{
     String name;
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
     public NewTest() {
         createDir("tests");
         name = newName();
     }
     @Override
     public void execute() {
-        //Scanner scanner = new Scanner(System.in);
         StringBuilder sb = new StringBuilder();
         System.out.println("Thanks! Now you can start inputing content:\n"+
                 "(to stop inputing type \"stop\" in a new line and press enter)");
@@ -48,34 +46,15 @@ public class NewTest implements Command{
         }
     }
 
-
-/*
-    public static boolean IfNotAvaliable(String nameToCheck, String path) {
-        Path startPath = Paths.get(path);
-        String fileToFind = nameToCheck;
-
-        try (Stream<Path> stream = Files.walk(startPath)) {
-            return stream
-                    .anyMatch(iter -> iter.getFileName().toString().equals(fileToFind));
-
-        } catch (IOException e) {
-            System.out.println("ifNotAvaliable newtest");
-        }
-        return false;
-    }
-*/
-
-
     public String newName(){
-        //Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the name for a test:\n"+
                 "(if you print a space only everything before it will be treated as filename)");
-        String input = scanner.next();
-        name = input;
+        name = scanner.next();
         if(Command.ifNotAvaliable(name + ".txt", "./tests/")) {
-            System.out.println("File with that name already exists.\n"+
-                    "If you want to overwrite the file with that name input \"overwrite\"\n"+
-                    "Otherwise press enter and input new name for your file");
+            System.out.println("""
+                    File with that name already exists.
+                    If you want to overwrite the file with that name input "overwrite"
+                    Otherwise press enter and input new name for your file""");
             if(scanner.nextLine().equals(Inputs.OVWRT.getCommand())) {
                 return name;
             }else{
