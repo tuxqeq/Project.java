@@ -2,18 +2,11 @@ public class CommandImp {
     public void execute() {
     }
     public Command getCommand(String commandName){
-        if(commandName.equals(Inputs.NEW_TEST
-                .getCommand())){
-            return new NewTest();
-        }
-        if(commandName.equals(Inputs.OPEN_TEST
-                .getCommand())){
-            return new OpenTest();
-        }
-        if(commandName.equals(Inputs.GO_TO_CHECKING_MOD
-                .getCommand())){
-            return new GoToCheckMod();
-        }
-        return null;
+        return switch (Inputs.toEnum(commandName)) {
+            case Inputs.NEW_TEST -> new NewTest();
+            case Inputs.OPEN_TEST -> new OpenTest();
+            case Inputs.GO_TO_CHECKING_MOD -> new GoToCheckMod();
+            default -> null;
+        };
     }
 }

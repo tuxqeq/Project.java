@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 public interface Command {
     void execute();
 
-    static boolean ifNotAvaliable(String nameToCheck, String path) {
+    static boolean ifNotAvaliable1(String nameToCheck, String path) {
         Path startPath = Paths.get(path);
         String fileToFind = nameToCheck;
 
@@ -19,5 +19,10 @@ public interface Command {
             System.out.println("ifNotAvaliable newtest");
         }
         return false;
+    }
+    static boolean ifNotAvaliable(String nameToCheck, String path) {
+        String search = path + nameToCheck;
+        return File.files.stream()
+                .anyMatch(iter -> iter.getPath().equals(search));
     }
 }

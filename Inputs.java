@@ -5,7 +5,11 @@ public enum Inputs {
     EXIT("exit"),
     STOP("stop"),
     SAVE("save"),
-    OVWRT("overwrite")
+    OVWRT("overwrite"),
+    READ("read"),
+    EDIT("edit"),
+    INVALID("invalid"),
+    CONTINUE("continue"),
     ;
 
     private final String command;
@@ -15,5 +19,19 @@ public enum Inputs {
     }
     public String getCommand() {
         return command;
+    }
+
+    public static Inputs toEnum(String inp) {
+        if(inp.equals(EXIT.getCommand())) {
+            System.out.println("left the program");
+            System.exit(0);
+        }
+        for (Inputs input : Inputs.values()) {
+            if (input.getCommand().equals(inp)) {
+                return input;
+            }
+        }
+        //System.out.println("invalid commmand");
+        return INVALID;
     }
 }

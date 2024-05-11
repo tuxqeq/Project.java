@@ -29,7 +29,7 @@ public class Tests extends File{
     }
     @Override
     String getPath() {
-        return "./tests/"+name+".txt";
+        return "./tests/"+name;
     }
 
     @Override

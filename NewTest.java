@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 
 public class NewTest implements Command{
     String name;
-    public Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
     public NewTest() {
         createDir("tests");
         name = newName();
@@ -49,6 +49,7 @@ public class NewTest implements Command{
     }
 
 
+/*
     public static boolean IfNotAvaliable(String nameToCheck, String path) {
         Path startPath = Paths.get(path);
         String fileToFind = nameToCheck;
@@ -62,6 +63,7 @@ public class NewTest implements Command{
         }
         return false;
     }
+*/
 
 
     public String newName(){
@@ -70,7 +72,7 @@ public class NewTest implements Command{
                 "(if you print a space only everything before it will be treated as filename)");
         String input = scanner.next();
         name = input;
-        if(IfNotAvaliable(name + ".txt", "./tests/")) {
+        if(Command.ifNotAvaliable(name + ".txt", "./tests/")) {
             System.out.println("File with that name already exists.\n"+
                     "If you want to overwrite the file with that name input \"overwrite\"\n"+
                     "Otherwise press enter and input new name for your file");

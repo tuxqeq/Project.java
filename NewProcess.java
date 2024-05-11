@@ -11,7 +11,7 @@ public class NewProcess {
                 Input "new test" to create new test
                 Input "open test" to open test
                 Input "go to checking module" to go to checking module
-                Input "exit" to exit
+                Input "exit" to exit during program execution
                 """);
 
         inp = scanner.nextLine();
@@ -19,9 +19,6 @@ public class NewProcess {
         Command command = commandImp.getCommand(inp);
         if(command != null) {
             command.execute();
-        }
-        if (inp.equals(Inputs.EXIT.getCommand())) {
-            System.exit(0);
         }
         if(command == null){
             System.out.println("Invalid command, please try again");
