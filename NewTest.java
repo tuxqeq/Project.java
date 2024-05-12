@@ -32,8 +32,8 @@ public class NewTest implements Command{
         if(scanner.nextLine().equals(Inputs.SAVE.getCommand())) {
             savingToFile(content);
         }
-        System.out.println("If you want to link the task to the folder where the locations are created input \"link\"\n"+
-                "or input stop if you dont want to link files");
+        /*System.out.println("If you want to link the task to the folder where the locations are created input \"link\"\n"+
+                "or input stop if you dont want to link files");*/
         acceptingLink();
     }
 
@@ -43,7 +43,7 @@ public class NewTest implements Command{
             FileWriter writer = new FileWriter(path);
             writer.write(content);
             writer.close();
-            this.test = new Tests(this.name + ".txt", new Content(content));
+            this.test = new Tests(this.name + ".txt", new ContentAnalysed(content));
             System.out.println("File saved successfully!");
         } catch (IOException e) {
             System.out.println("saving new test java");
@@ -78,6 +78,8 @@ public class NewTest implements Command{
         }
     }
     public void acceptingLink(){
+        System.out.println("If you want to link the task to the folder where the locations are created input \"link\"\n"+
+            "or input stop if you dont want to link files");
         switch (Inputs.toEnum(scanner.next())){
             case LINK:
                 linkToFolder();
@@ -90,13 +92,31 @@ public class NewTest implements Command{
         }
     }
     public void linkToFolder(){
-        System.out.println("Please enter the name of the student to which folder you want to link the test");
-        String studentName = scanner.nextLine();
+        System.out.println("Please enter the name of the student to which folder you want to link this test\n"+
+                "or input \"stop\" if you want to stop linking");
+        Scanner scan = new Scanner(System.in);
+        String studentName = scan.nextLine();
         String path = "./Students/" + studentName;
-        if(Command.fileIsInDir(this.name, studentName)){
+        if(!fileExists(path)){
+            System.out.println("Student does not exist");
+            linkToFolder();
+        }
+        if(fileExists(path + "/" + name)){
             this.test.link(studentName + "/" + this.name);
+            System.out.println("linked to " + this.test + "to " + path + "/" + this.name);
+            linkToFolder();
         }else{
             System.out.println("Student has not provided solution for this task");
+            linkToFolder();
+        }
+    }
+    public boolean fileExists(String pathToF){
+        Path path = Paths.get(pathToF);
+
+        if (Files.exists(path)) {
+            return true;
+        } else {
+            return false;
         }
     }
 }
