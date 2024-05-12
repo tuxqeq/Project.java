@@ -13,10 +13,9 @@ public class ContentAnalysed {
 
     private void analyse(String content) {
         Pattern pattern = Pattern.compile(
-                "(\\$.*?\\$)|" +                // LaTeX
+                "(\\$[^$]*\\$)|" +                // LaTeX
                         "(\\\\href\\{[^}]*?jpg}|png})|" +     // Image
                         "([^$\\\\]+)");           // Text
-        //TODO  сделать чтобы ентер работал
         Matcher matcher = pattern.matcher(content);
 
         while (matcher.find()) {
