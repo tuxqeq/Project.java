@@ -1,10 +1,16 @@
 public class CommandImp {
-    public Command getCommand(String commandName){
+    /*public Command getCommand(String commandName){
         return switch (Inputs.toEnum(commandName)) {
-            case Inputs.NEW_TEST -> new NewTest();
-            case Inputs.OPEN_TEST -> new OpenTest();
-            case Inputs.GO_TO_CHECKING_MOD -> new GoToCheckMod();
+            case NEW_TEST -> new NewTest();
+            case OPEN_TEST -> new OpenTest();
             default -> null;
         };
-    }
+    }*/
+    /*public Command getChModCommand(String commandName){
+        return switch (Inputs.toEnum(commandName)){
+            case GO_TO_TASK -> new TaskModule();
+            case GO_TO_STUDENT_MOD -> new StudentModule();
+            default -> null;
+        };
+    }*/
 }

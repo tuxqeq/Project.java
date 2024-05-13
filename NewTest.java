@@ -5,15 +5,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
-public class NewTest implements Command{
+public class NewTest{
     String name;
     private final Scanner scanner = new Scanner(System.in);
     Tests test;
     public NewTest() {
         createDir("tests");
         name = newName();
+        execute();
     }
-    @Override
     public void execute() {
         StringBuilder sb = new StringBuilder();
         System.out.println("Thanks! Now you can start inputing content:\n"+
