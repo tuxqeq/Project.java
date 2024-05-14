@@ -18,7 +18,8 @@ public enum Inputs {
     NUM_OF_SOLUTIONS("number of solutions"),
     NEXT("next"),
     INFO_ABOUT("info about"),
-    PREVIOUS("prevoious")
+    PREVIOUS("previous"),
+    BACK("back"),
     ;
 
     private final String command;
