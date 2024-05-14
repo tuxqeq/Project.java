@@ -1,17 +1,14 @@
-import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.spec.RSAOtherPrimeInfo;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Scanner;
 
 public class StudentModule {
     String name;
     Solutions solution;
-    Path pathToCurrentFolder;
+    String pathToCurrentFolder;
     ArrayList<String> files;
 
     public StudentModule() {
@@ -45,7 +42,7 @@ public class StudentModule {
     }
 
     public void menuStd() {
-        System.out.println("You chosed '" + name + "'" +
+        System.out.println("You chosed '" + name + "' \n" +
                 """
                         Please choose what you want to do
                         If you want to to get information about number of tasks submitted by this student input "info about"
@@ -55,6 +52,8 @@ public class StudentModule {
         switch (scanner.nextLine()) {
             case "info about":
                 System.out.println("Student '" + name + "' Provided this number of solutions: " + infoAbout());
+                menuStd();
+                break;
             case "open":
                 open();
                 break;
@@ -72,18 +71,24 @@ public class StudentModule {
     public void open() {
         System.out.println("Please choose a folder\n" +
                 "(they are listed lower)");
-        this.solution.getSolutions().stream().forEach(System.out::println);
+        this.solution.getSolutions().stream().forEach(iter -> System.out.println(iter.getName()));
         Scanner scanner = new Scanner(System.in);
         String folderName = scanner.nextLine();
-        //openFolder(folderName);
-        Path folderPath = Paths.get("./Students/" + name + "/" + folderName);
+        if(this.solution.contains(folderName)){
+            openFiles(folderName);
+            this.pathToCurrentFolder = this.solution.getPath();
+        }else{
+            System.out.println("Folder does not exist, please try again");
+            open();
+        }
+        /*Path folderPath = Paths.get("./Students/" + name + "/" + folderName);
         this.pathToCurrentFolder = folderPath;
         if (Files.exists(folderPath)) {
             openFiles(folderPath);
         } else {
             System.out.println("Folder does not exist, please try again");
             open();
-        }
+        }*/
     }
 
     public Solutions findSol(String name) {
@@ -92,9 +97,8 @@ public class StudentModule {
                 .filter(iter -> path.equals(iter.getPath()))
                 .findFirst()
                 .orElse(null);
-
         if (foundSolution == null) {
-            System.out.println("No solution found for this student");
+            System.out.println("No solutions found for this student");
         }
         return foundSolution;
     }
@@ -110,32 +114,26 @@ public class StudentModule {
         }
     }*/
 
-    public void openFiles(Path path) {
-        System.out.println("Please choose a file to open\n" +
-                "They are listed lower");
+    public void openFiles(String FldName) {
         ArrayList<String> names = new ArrayList<>();
-        try {
-            Files.list(path)
-                    .map(Path::getFileName)
-                    .forEach(iter -> names.add(iter.toString()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        names = this.solution.findfiles(FldName);
         this.files = names;
         if(names.isEmpty()) {
             System.out.println("There is no solutions in this folder, please choose another one");
             open();
         }else {
-            names.stream().forEach(System.out::println);
+            System.out.println("Please choose a file to open\n" +
+                    "They are listed lower");
+            names.stream().forEach(s -> System.out.println(" - " + s)/*тут можно анонимный класс*/);
             System.out.println("(you can enter either filename or filename with '.java')");
             Scanner scanner = new Scanner(System.in);
             String filename = checkJAVA(scanner.nextLine());
-            Path path1 = Path.of(path + "/" + filename);
-            if (Files.exists(path1)) {
-                soutFIle(path1);
+            if (names.contains(filename)) {
+                Path pathToFile = Path.of(this.solution.getPath() + FldName + "/" + filename);
+                soutFIle(pathToFile);
             } else {
                 System.out.println("There is no file with specified filename, try again");
-                openFiles(path);
+                openFiles(FldName);
             }
         }
     }
@@ -183,7 +181,7 @@ public class StudentModule {
         int currentIndex = files.indexOf(nameCurrent);
         if (currentIndex < files.size() - 1) {
             String nextFile = files.get(currentIndex + 1);
-            Path nextPath = Paths.get(path.getParent().toString(), nextFile);
+            Path nextPath = Paths.get(pathToCurrentFolder, nextFile);
             System.out.println(nextFile);
             soutFIle(nextPath);
         } else {
@@ -192,14 +190,13 @@ public class StudentModule {
         }
     }
     void previous(Path path) {
-        System.out.println("prevoius");
         String nameCurrent = path.getFileName().toString();
         int currentIndex = files.indexOf(nameCurrent);
         if (currentIndex > 0) {
-            String nextFile = files.get(currentIndex - 1);
-            Path nextPath = Paths.get(path.getParent().toString(), nextFile);
-            System.out.println(nextFile);
-            soutFIle(nextPath);
+            String prevFile = files.get(currentIndex - 1);
+            Path prevPath = Paths.get(pathToCurrentFolder, prevFile);
+            System.out.println(prevFile);
+            soutFIle(prevPath);
         } else {
             System.out.println("This is the first file in folder, you can move only forward");
             nextPrevious(path);

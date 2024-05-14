@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 
 public class Solutions extends File implements Comparable<Solutions>{
     String studentName;
-    ArrayList<String> solutions = new ArrayList<>();
+    ArrayList<FolderContent> solutions = new ArrayList<>();
     public Solutions(){
         String studentsFolderPath = "./Students/";
         Path studentsPath = Paths.get(studentsFolderPath);
@@ -24,7 +24,7 @@ public class Solutions extends File implements Comparable<Solutions>{
                                 Solutions found = (Solutions) File.files
                                         .stream()
                                         .filter(item -> item.equals(sol)).findFirst().get();
-                                found.getSolutions().add(folder.getFileName().toString());
+                                found.getSolutions().add(new FolderContent(folder));
                             }else {
                                 File.addToCollection(sol);
                             }
@@ -48,17 +48,7 @@ public class Solutions extends File implements Comparable<Solutions>{
 
     @Override
     public String toString() {
-        return "\"" + studentName + "\"";
-    }
-
-    public boolean containsSolution(String solution){
-        for(String s : solutions){
-            if (s.equals(solution)) {
-                return true;
-            }
-            System.out.println(s);
-        }
-        return false;
+        return "'" + studentName + "'";
     }
 
     public String getStudentName(){
@@ -83,14 +73,32 @@ public class Solutions extends File implements Comparable<Solutions>{
         else return 1;
     }
 
-    public ArrayList<String> getSolutions() {
+    public ArrayList<FolderContent> getSolutions() {
         return solutions;
     }
     public int getLen(){
         int count = 0;
-        for(String s : solutions){
-            count++;
+        for(FolderContent s : solutions){
+            if(!s.getFiles().isEmpty()){
+                count ++;
+            }
         }
         return count;
+    }
+    public boolean contains(String solution){
+        for(FolderContent f : solutions){
+            if(f.getName().equals(solution)){
+                return true;
+            }
+        }
+        return false;
+    }
+    public ArrayList<String> findfiles(String FldName){
+        for(FolderContent f : solutions){
+            if(f.getName().equals(FldName)){
+                return f.getFiles();
+            }
+        }
+        return null;
     }
 }

@@ -5,8 +5,9 @@ public class Main {
         new Tests();
         new Solutions();
         System.out.println(File.files);
-        while(true) {
+        /*while(true) {
             new MainMenu();
-        }
+        }*/
+        new StudentModule();
     }
 }

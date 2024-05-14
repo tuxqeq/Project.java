@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -8,20 +7,13 @@ public class TaskModule{
     Tests test;
     public TaskModule(){
         System.out.println("You are in a Task module");
-        this.nameWithTXT = newName();
-        this.name = nameWithTXT.substring(0, nameWithTXT.lastIndexOf('.'));
-        this.test = findTest(nameWithTXT);
-        execute();
-    }
-
-    public void execute() {
-        System.out.println(this.name);
+        newName();
         linkedNumAcess();
-
     }
 
-    public String newName(){
-        System.out.println("Existing files are printed lower\n");
+
+    public void newName(){
+        System.out.println("Existing files are printed lower");
         File.files.stream()
                 .filter(file -> file.getPath().startsWith("./tests/"))
                 .forEach(System.out::println);
@@ -30,14 +22,16 @@ public class TaskModule{
                 (you can write either type just filename or with ".txt")""");
         Scanner scanner = new Scanner(System.in);
         String nameWithTXT =  OpenTest.checkTXT(scanner.next());
-        System.out.println(nameWithTXT);
         if(OpenTest.fileExists("./tests/" + nameWithTXT)){
-            return nameWithTXT;
+            this.nameWithTXT = nameWithTXT;
+            this.name = nameWithTXT.substring(0, nameWithTXT.lastIndexOf('.'));
+            this.test = findTest(nameWithTXT);
+            linkedNumAcess();
         }else{
             System.out.println("File does not exist. Please enter a valid file name.");
             newName();
         }
-        return null;
+
     }
     public Tests findTest(String path){
         String pathToSearch = "./tests/" + path;
@@ -47,19 +41,18 @@ public class TaskModule{
                 .orElse(null);
     }
 
-    public void printLinkedPaths() {
+    /*public void printLinkedPaths() {
         System.out.println("Linked Paths:");
         for (String path : this.test.linkedPaths) {
             System.out.println(path);
         }
-    }
+    }*/
 
     public void linkedNumAcess(){
         System.out.println("You choosed \"" + name + "\" test\n"+
                 "Please choose what you want to do with it\n"+
                 "If you want to get number of solutions for this task input \"number of solutions\"\n"+
-                "If you want to access next task in 'tasks' folder press \"cmd\" + \"D\"");
-
+                "If you want to access next task in 'tasks' folder input \"next\"");
 
         /*new JFrame() {{
             setSize(1, 1);
@@ -113,22 +106,25 @@ public class TaskModule{
         File current;
         while(files.hasNext()){
             current = files.next();
-            if(current instanceof Solutions && containsSol((Solutions) current)) count++;
+            if(current instanceof Solutions && ((Solutions) current).contains(this.name)) count++;
         }
         return count;
     }
 
     public boolean containsSol(Solutions solutions){
-        ArrayList<String> sol = solutions.getSolutions();
-        return sol.contains(this.name);
+        return solutions.contains(this.name);
     }
+
     public void nextTest(){
         if(test.getNext() != null){
             this.test = test.getNext();
             this.nameWithTXT = test.getName();
             this.name = nameWithTXT.substring(0, nameWithTXT.lastIndexOf('.'));
+            System.out.println(this.name);
+            linkedNumAcess();
         }else {
-            System.out.println("You got to the end of the tests folder");
+            System.out.println("You got to the end of the 'tests' folder, please choose another file");
+            newName();
         }
     }
 

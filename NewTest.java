@@ -59,7 +59,8 @@ public class NewTest{
                     File with that name already exists.
                     If you want to overwrite the file with that name input "overwrite"
                     Otherwise press enter and input new name for your file""");
-            if(scanner.nextLine().equals(Inputs.OVWRT.getCommand())) {
+            Scanner scan = new Scanner(System.in);
+            if(scan.nextLine().equals(Inputs.OVWRT.getCommand())) {
                 return name;
             }else{
                 newName();
@@ -114,10 +115,6 @@ public class NewTest{
     public boolean fileExists(String pathToF){
         Path path = Paths.get(pathToF);
 
-        if (Files.exists(path)) {
-            return true;
-        } else {
-            return false;
-        }
+        return Files.exists(path);
     }
 }
