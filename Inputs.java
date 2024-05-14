@@ -16,8 +16,9 @@ public enum Inputs {
     GO_TO_STUDENT_MOD("go to student module"),
     MAIN_MENU("main menu"),
     NUM_OF_SOLUTIONS("number of solutions"),
-    NEXT("test"),
+    NEXT("next"),
     INFO_ABOUT("info about"),
+    PREVIOUS("prevoious")
     ;
 
     private final String command;

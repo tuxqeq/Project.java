@@ -58,7 +58,7 @@ public class TaskModule{
         System.out.println("You choosed \"" + name + "\" test\n"+
                 "Please choose what you want to do with it\n"+
                 "If you want to get number of solutions for this task input \"number of solutions\"\n"+
-                "If you want to access next task in \'tasks\' folder press \"cmd\" + \"D\"");
+                "If you want to access next task in 'tasks' folder press \"cmd\" + \"D\"");
 
 
         /*new JFrame() {{
