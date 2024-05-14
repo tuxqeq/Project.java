@@ -8,6 +8,7 @@ public class Main {
         /*while(true) {
             new MainMenu();
         }*/
-        new StudentModule();
+        //new StudentModule();
+        new NewTest();
     }
 }

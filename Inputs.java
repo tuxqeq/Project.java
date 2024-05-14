@@ -1,3 +1,5 @@
+import java.util.Locale;
+
 public enum Inputs {
     NEW_TEST("new test"),
     OPEN_TEST("open test"),
@@ -6,7 +8,7 @@ public enum Inputs {
     EXIT("exit"),
     STOP("stop"),
     SAVE("save"),
-    OVWRT("overwrite"),
+    OVWRT("overwrite the file"),
     READ("read"),
     EDIT("edit"),
     INVALID("invalid"),
