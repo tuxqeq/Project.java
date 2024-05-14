@@ -3,6 +3,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.stream.Stream;
 
 public class Tests extends File{
@@ -31,7 +32,10 @@ public class Tests extends File{
     }
     public void link(String folderName){
         this.linkedPaths.add(folderName);
+        System.out.println(folderName);
+        System.out.println("List: "+linkedPaths);
     }
+
 
     @Override
     String getPath() {
@@ -42,8 +46,28 @@ public class Tests extends File{
         this.content = content;
     }
 
+    public String getName(){
+        return this.name;
+    }
+
     @Override
     public String toString() {
         return "\"" + name + "\"";
+    }
+    public Tests getNext(){
+        Iterator<File> iter = File.files.iterator();
+        while (iter.hasNext()) {
+            File file = iter.next();
+            if (file.getPath().equals(getPath())) {
+                File innerIt = iter.next();
+                if (innerIt instanceof Tests) {
+                    return (Tests) innerIt;
+                }else{
+                    return null;
+                }
+            }
+        }
+
+        return null;
     }
 }

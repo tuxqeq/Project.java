@@ -80,11 +80,12 @@ public class NewTest{
     public void acceptingLink(){
         System.out.println("If you want to link the task to the folder where the locations are created input \"link\"\n"+
             "or input stop if you dont want to link files");
-        switch (Inputs.toEnum(scanner.next())){
-            case LINK:
+        Scanner scan = new Scanner(System.in);
+        switch (Inputs.toEnum(scan.nextLine())){
+            case Inputs.LINK:
                 linkToFolder();
                 break;
-            case STOP:
+            case Inputs.STOP:
                 break;
             default:
                 System.out.println("Wrong command, try again");
@@ -102,7 +103,7 @@ public class NewTest{
             linkToFolder();
         }
         if(fileExists(path + "/" + name)){
-            this.test.link(studentName + "/" + this.name);
+            this.test.link(path + "/" + this.name);
             System.out.println("linked to " + this.test + "to " + path + "/" + this.name);
             linkToFolder();
         }else{
