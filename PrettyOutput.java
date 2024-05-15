@@ -5,6 +5,7 @@ interface PrettyOutput {
         System.out.println("\n!!! " + s + " !!!\n");
     }
     static void printEnums(Inputs[] enums){
+        System.out.println("||| You have " + enums.length + " options, please choose: |||");
         System.out.println(formatInp(enums));
 
     }
@@ -22,7 +23,6 @@ interface PrettyOutput {
     }
     static String formatInp(Inputs[] enums){
         StringBuilder sb = new StringBuilder();
-        System.out.println("||| You have " + enums.length + " options, please choose: |||");
         for (Inputs e : enums) {
             sb.append("• If you want to ").append(e.getCommand()).append(" input \"").append(e.getCommand()).append("\"\n");
         }

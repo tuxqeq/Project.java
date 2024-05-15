@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class NewTest implements WrkngFiles{
@@ -10,6 +11,7 @@ public class NewTest implements WrkngFiles{
     Tests test;
     public NewTest() {
         PrettyOutput.printHeader("You started creating new test");
+        newName();
         createDir("tests");
         //name = newName();
         inputtingFile();
@@ -28,11 +30,8 @@ public class NewTest implements WrkngFiles{
             }
         }
         String content = sb.toString();
-        System.out.println("test: " + name + " was created\n"+
-                "If you want to save it type in \"save\", otherwise press enter");
-        if(PrettyOutput.nextLine().equals(Inputs.SAVE.getCommand())) {
-            savingToFile(content);
-        }
+        PrettyOutput.printInfo("test: " + name + " was created");
+        savingToFile(content);
         acceptingLink();
     }
 
@@ -43,16 +42,15 @@ public class NewTest implements WrkngFiles{
             writer.write(content);
             writer.close();
             this.test = new Tests(this.name + ".txt", new ContentAnalysed(content));
-            System.out.println("File saved successfully!");
+            PrettyOutput.printInfo("File saved successfully!");
         } catch (IOException e) {
             System.out.println("saving new test java");
         }
     }
 
     public void newName(){
-        System.out.println("Enter the name for a test:\n"+
-                "(if you print a space only everything before it will be treated as filename)");
-        String nameT = PrettyOutput.next();
+        PrettyOutput.printInfo("Enter the name for a test:");
+        String nameT = PrettyOutput.printBfInp("(if you print a space only everything before it will be treated as filename)");
         if(testExists(nameT + ".txt")) {
             PrettyOutput.printWarning("File with that name already exists.");
             PrettyOutput.printEnums(new Inputs[]{Inputs.OVWRT});
@@ -63,7 +61,7 @@ public class NewTest implements WrkngFiles{
                 newName();
             }
         }
-        //this.name = nameT;
+        this.name = nameT;
     }
     public void createDir(String name){
         Path startPath = Paths.get("./"+name+"/");
@@ -83,6 +81,7 @@ public class NewTest implements WrkngFiles{
                 linkToFolder();
                 break;
             case Inputs.STOP:
+                PrettyOutput.printInfo("Press enter to process");
                 break;
             default:
                 PrettyOutput.printWarning("Wrong command, try again");
@@ -90,30 +89,36 @@ public class NewTest implements WrkngFiles{
         }
     }
     public void linkToFolder(){
-        String inp = PrettyOutput.printBfInp("Please enter the name of the student to which folder you want to link this test"+
+        String inp = PrettyOutput.printBfInp("Please enter the name of the student to which folder you want to link this test\n"+
                 PrettyOutput.formatInp(new Inputs[]{Inputs.STOP}));
         if ((Inputs.toEnum(inp)) != Inputs.STOP) {
-            //String path = "./Students/" + inp;
-            Solutions stud = new Solutions(inp);
-            stud = fileExists(stud);
-            if(stud == null){
-                PrettyOutput.printWarning("\"Student does not exist\"");
-                linkToFolder();
-            }if(stud.getSolutions().isEmpty()){
-                PrettyOutput.printWarning("Student has not provided solution for this task");
-            }if(stud != null){
-                this.test.link(stud.getPath() + this.name);
-                System.out.println("linked to " + stud.getPath() + this.name);
+            if(fileExists(inp)){
+                if(testExists(this.name, inp)){
+                    this.test.link("./Students/" + inp);
+                    linkToFolder();
+                }else{
+                    PrettyOutput.printWarning("Student has not provided solutions for this task");
+                    linkToFolder();
+                }
+            }else{
+                PrettyOutput.printWarning("Student folder doesn't exist");
                 linkToFolder();
             }
+        }else{
+            PrettyOutput.printInfo("Press enter to proceed");
+            linkToFolder();
         }
     }
-    public Solutions fileExists(Solutions stud){
-        return (Solutions) File.files.stream().filter(iter-> iter.equals(stud)).findFirst().orElse(null);
+    public boolean fileExists(String stud){
+        Iterator<File> iter = File.files.iterator();
+        if (iter instanceof Solutions && ((Solutions) iter).getName().equals(stud)) {
+            return true;
+        }
+        return false;
     }
-    public boolean testExists(String name){
+    public boolean testExists(String name, String StdName){
         for(File iter : File.files){
-            if (iter instanceof Tests && ((Tests) iter).getName().equals(name)) {
+            if (iter instanceof Solutions && ((Solutions) iter).getSolutions().contains(name) && ((Solutions) iter).getName().equals(StdName)) {
                 return true;
             }
         }

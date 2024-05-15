@@ -101,4 +101,8 @@ public class Solutions extends File implements Comparable<Solutions>{
         }
         return null;
     }
+
+    public Object getName() {
+        return studentName;
+    }
 }

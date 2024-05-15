@@ -33,9 +33,9 @@ public class Tests extends File{
         addToCollection(this);
     }
     public void link(String folderName){
-        this.linkedPaths.add(folderName);
-        System.out.println(folderName);
-        System.out.println("List: "+linkedPaths);
+        this.linkedPaths.add(folderName + "/" + this.name);
+        //System.out.println(folderName);
+        //System.out.println("List: "+linkedPaths);
     }
 
 
