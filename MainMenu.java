@@ -12,20 +12,10 @@ public class MainMenu implements Menus {
     public void menuSwitch(String input){
         switch (Inputs.toEnum(input)){
             case EDITING_MOD -> {
-                //while(true){
-                    new EditModMenu();
-                    /*if (Inputs.toEnum(PrettyOutput.nextLine()) == Inputs.MAIN_MENU){
-                        break;
-                    }*/
-                //}
+                new EditModMenu();
             }
             case CHECKING_MOD -> {
-                //while (true) {
-                    new CheckModMenu();
-                    //if (Inputs.toEnum(PrettyOutput.nextLine()) == Inputs.MAIN_MENU){
-                        //break;
-                    //}
-                //}
+                new CheckModMenu();
             }
             default -> PrettyOutput.printWarning("Wrong command, try again");
         }

@@ -7,7 +7,7 @@ public class CheckModMenu implements Menus{
     @Override
     public void displayMenu() {
         PrettyOutput.printHeader("You are in a Checking Module Menu");
-        PrettyOutput.printEnums(new Inputs[]{Inputs.GO_TO_TASK, Inputs.GO_TO_STUDENT_MOD, Inputs.MAIN_MENU});
+        PrettyOutput.printEnums(new Inputs[]{Inputs.GO_TO_TASK, Inputs.GO_TO_STUDENT_MOD, Inputs.MAIN_MENU, Inputs.EXIT});
         menuSwitch(PrettyOutput.nextLine());
     }
 
@@ -23,6 +23,7 @@ public class CheckModMenu implements Menus{
                 break;
             }
             case MAIN_MENU:
+                //PrettyOutput.printInfo("Press Enter to process");
                 break;
             default:{
                 System.out.println("Invalid command, please try again");

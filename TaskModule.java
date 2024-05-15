@@ -6,22 +6,20 @@ public class TaskModule{
     String name;
     Tests test;
     public TaskModule(){
-        System.out.println("You are in a Task module");
+        PrettyOutput.printHeader("You are in a Task module");
         newName();
         linkedNumAcess();
     }
 
 
     public void newName(){
-        System.out.println("Existing files are printed lower");
+        PrettyOutput.printInfo("Existing files are printed lower");
         File.files.stream()
                 .filter(file -> file.getPath().startsWith("./tests/"))
-                .forEach(System.out::println);
-        System.out.println("""
-                Please enter name of the test which you want to choose
-                (you can write either type just filename or with ".txt")""");
-        Scanner scanner = new Scanner(System.in);
-        String nameWithTXT =  OpenTest.checkTXT(scanner.next());
+                .forEach(iter -> PrettyOutput.print(" - " + iter.toString()));
+        PrettyOutput.printInfo("Please enter name of the test which you want to choose");
+        //PrettyOutput.printBfInp("(you can write either type just filename or with \".txt\"");
+        String nameWithTXT =  OpenTest.checkTXT(PrettyOutput.printBfInp("(you can write either type just filename or with \".txt\""));
         if(OpenTest.fileExists("./tests/" + nameWithTXT)){
             this.nameWithTXT = nameWithTXT;
             this.name = nameWithTXT.substring(0, nameWithTXT.lastIndexOf('.'));
