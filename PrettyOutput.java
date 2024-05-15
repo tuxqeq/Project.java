@@ -32,7 +32,7 @@ interface PrettyOutput <T>{
         System.out.println("\n–––– " + s + " ––––\n");
     }
     static void printInfo(String s){
-        System.out.println("– " + s + " –");
+        System.out.println("\n– " + s + " –\n");
     }
     static void print(String s){
         System.out.println(s);

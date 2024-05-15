@@ -48,13 +48,28 @@ abstract class WrkngFiles {
         return Files.exists(path);
     }
     public boolean testExists(String s) {
-        //System.out.println(s);
+        String ss = "\"" + s + ".txt\"";
         for(File i : File.files){
-            //System.out.println(i.toString());
-            if(i.toString().equals("\"" + s + "\"")){
+            if(i.toString().equals(ss)){
                 return true;
             }
         }
         return false;
+    }
+    public String testTXT(){
+        return this.name + ".txt";
+    }
+    public Tests findTest(String path){
+        String pathToSearch = "./tests/" + path + ".txt";
+        return (Tests) File.files.stream()
+                .filter(iter -> pathToSearch.equals(iter.getPath()))
+                .findFirst()
+                .orElse(null);
+    }
+    public String removeTXT(String filename) {
+        if (filename.endsWith(".txt")) {
+            return filename.substring(0, filename.length() - 4);
+        }
+        return filename;
     }
 }

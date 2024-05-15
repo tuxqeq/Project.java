@@ -15,7 +15,7 @@ public enum Inputs {
     GO_TO_TASK("go to task"),
     GO_TO_STUDENT_MOD("go to student module"),
     MAIN_MENU("go to main menu"),
-    NUM_OF_SOLUTIONS("number of solutions"),
+    NUM_OF_SOLUTIONS("get number of solutions"),
     NEXT("next"),
     INFO_ABOUT("info about"),
     PREVIOUS("previous"),

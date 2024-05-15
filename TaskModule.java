@@ -1,14 +1,12 @@
 import java.util.Iterator;
-import java.util.Scanner;
 
-public class TaskModule{
+public class TaskModule extends WrkngFiles{
     String nameWithTXT;
-    String name;
+    //String name;
     Tests test;
     public TaskModule(){
         PrettyOutput.printHeader("You are in a Task module");
         newName();
-        linkedNumAcess();
     }
 
 
@@ -19,83 +17,52 @@ public class TaskModule{
                 .forEach(iter -> PrettyOutput.print(" - " + iter.toString()));
         PrettyOutput.printInfo("Please enter name of the test which you want to choose");
         //PrettyOutput.printBfInp("(you can write either type just filename or with \".txt\"");
-        String nameWithTXT =  OpenTest.checkTXT(PrettyOutput.printBfInp("(you can write either type just filename or with \".txt\""));
-        if(OpenTest.fileExists("./tests/" + nameWithTXT)){
-            this.nameWithTXT = nameWithTXT;
-            this.name = nameWithTXT.substring(0, nameWithTXT.lastIndexOf('.'));
-            this.test = findTest(nameWithTXT);
+        String inp = removeTXT(PrettyOutput.printBfInp("(you can write either type just filename or with \".txt\""));
+        if(testExists(inp)){
+            //this.nameWithTXT = nameWithTXT;
+            this.name = inp;
+            this.test = findTest(inp);
             linkedNumAcess();
         }else{
-            System.out.println("File does not exist. Please enter a valid file name.");
+            PrettyOutput.printWarning("File does not exist");
+            PrettyOutput.print("Please enter a valid file name");
             newName();
         }
 
     }
-    public Tests findTest(String path){
-        String pathToSearch = "./tests/" + path;
-        return (Tests) File.files.stream()
-                .filter(iter -> pathToSearch.equals(iter.getPath()))
-                .findFirst()
-                .orElse(null);
-    }
-
-    /*public void printLinkedPaths() {
-        System.out.println("Linked Paths:");
-        for (String path : this.test.linkedPaths) {
-            System.out.println(path);
-        }
-    }*/
-
     public void linkedNumAcess(){
-        System.out.println("You choosed \"" + name + "\" test\n"+
-                "Please choose what you want to do with it\n"+
-                "If you want to get number of solutions for this task input \"number of solutions\"\n"+
-                "If you want to access next task in 'tasks' folder input \"next\"");
+        PrettyOutput.printInfo("You choosed \"" + name + "\" test");
 
-        /*new JFrame() {{
-            setSize(1, 1);
-
-            JPanel contentPane = (JPanel) getContentPane();
-
-            Action action = new AbstractAction() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    System.out.println("Ctrl + Shift + D pressed");
-                    setVisible(false);
-                    dispose();
-                    System.out.println("afterDipose");
-                    nxtTst();
+        new Menus(){
+            private boolean dontstop = true;
+            @Override
+            public void displayMenu() {
+                if (dontstop) {
+                    PrettyOutput.printEnums(new Inputs[]{Inputs.NUM_OF_SOLUTIONS, Inputs.NEXT, Inputs.CHECKING_MOD});
+                    menuSwitch(PrettyOutput.nextLine());
                 }
-                public void nxtTst(){
-                    dispose();
-                    nextTest();
+            }
+            @Override
+            public void menuSwitch(String input) {
+                switch ((Inputs.toEnum(input))){
+                    case NUM_OF_SOLUTIONS:
+                        PrettyOutput.printInfo("Number of solutions for this Task: " + numOfSolutions());
+                        linkedNumAcess();
+                        break;
+                    case NEXT:
+                        nextTest();
+                        break;
+                    case CHECKING_MOD:
+                        this.dontstop = false;
+                        break;
+                    default:
+                        PrettyOutput.printWarning("Wrong command, try again");
+                        linkedNumAcess();
+                        break;
                 }
-            };
+            }
+        }.displayMenu();
 
-            String keyStrokeAndKey = "ctrl shift D";
-            KeyStroke keyStroke = KeyStroke.getKeyStroke(keyStrokeAndKey);
-            contentPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
-                    .put(keyStroke, keyStrokeAndKey);
-            contentPane.getActionMap().put(keyStrokeAndKey, action);
-            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            setVisible(true);
-
-        }};*/
-        Scanner scanner = new Scanner(System.in);
-        switch(Inputs.toEnum(scanner.nextLine())){
-            case NUM_OF_SOLUTIONS:
-                System.out.println("Number of solutions for this Task: " + numOfSolutions());
-                linkedNumAcess();
-                break;
-            case NEXT:
-                nextTest();
-                break;
-            default:
-                System.out.println("Wrong command, try again");
-                linkedNumAcess();
-                break;
-
-        }
     }
 
     public int numOfSolutions(){
@@ -109,10 +76,6 @@ public class TaskModule{
         return count;
     }
 
-    public boolean containsSol(Solutions solutions){
-        return solutions.contains(this.name);
-    }
-
     public void nextTest(){
         if(test.getNext() != null){
             this.test = test.getNext();
@@ -121,9 +84,8 @@ public class TaskModule{
             System.out.println(this.name);
             linkedNumAcess();
         }else {
-            System.out.println("You got to the end of the 'tests' folder, please choose another file");
+            PrettyOutput.printWarning("You got to the end of the 'tests' folder, please choose another file");
             newName();
         }
     }
-
 }

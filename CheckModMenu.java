@@ -1,4 +1,5 @@
 public class CheckModMenu implements Menus{
+    private boolean dontstop = true;
 
     public CheckModMenu() {
         displayMenu();
@@ -6,9 +7,11 @@ public class CheckModMenu implements Menus{
 
     @Override
     public void displayMenu() {
+        while (dontstop){
         PrettyOutput.printHeader("You are in a Checking Module Menu");
         PrettyOutput.printEnums(new Inputs[]{Inputs.GO_TO_TASK, Inputs.GO_TO_STUDENT_MOD, Inputs.MAIN_MENU, Inputs.EXIT});
         menuSwitch(PrettyOutput.nextLine());
+        }
     }
 
     @Override
@@ -23,7 +26,7 @@ public class CheckModMenu implements Menus{
                 break;
             }
             case MAIN_MENU:
-                //PrettyOutput.printInfo("Press Enter to process");
+                dontstop = false;
                 break;
             default:{
                 System.out.println("Invalid command, please try again");
