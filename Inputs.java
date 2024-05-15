@@ -1,10 +1,8 @@
-import java.util.Locale;
-
 public enum Inputs {
-    NEW_TEST("new test"),
+    NEW_TEST("create new test"),
     OPEN_TEST("open test"),
-    EDITING_MOD("editing module"),
-    CHECKING_MOD("checking module"),
+    EDITING_MOD("go to editing module"),
+    CHECKING_MOD("go to checking module"),
     EXIT("exit"),
     STOP("stop"),
     SAVE("save"),
@@ -16,7 +14,7 @@ public enum Inputs {
     LINK("link"),
     GO_TO_TASK("go to task"),
     GO_TO_STUDENT_MOD("go to student module"),
-    MAIN_MENU("main menu"),
+    MAIN_MENU("go to main menu"),
     NUM_OF_SOLUTIONS("number of solutions"),
     NEXT("next"),
     INFO_ABOUT("info about"),

@@ -2,14 +2,11 @@ import java.util.Scanner;
 
 interface PrettyOutput {
     static void printWarning(String s){
-        System.out.println("!!! " + s + " !!!\n");
+        System.out.println("\n!!! " + s + " !!!\n");
     }
     static void printEnums(Inputs[] enums){
-        //System.out.println("\n");
-        for (Inputs e : enums) {
-            System.out.println("If you want to " + e.getCommand() + " input \"" + e.getCommand() + "\"");
-        }
-        //System.out.println("\n");
+        System.out.println(formatInp(enums));
+
     }
     static String next(){
         Scanner scanner = new Scanner(System.in);
@@ -24,13 +21,17 @@ interface PrettyOutput {
         return nextLine();
     }
     static String formatInp(Inputs[] enums){
-        StringBuilder sb = new StringBuilder("");
+        StringBuilder sb = new StringBuilder();
+        System.out.println("||| You have " + enums.length + " options, please choose: |||");
         for (Inputs e : enums) {
-            sb.append("\nIf you want to " + e.getCommand() + " input \"" + e.getCommand() + "\"");
+            sb.append("• If you want to ").append(e.getCommand()).append(" input \"").append(e.getCommand()).append("\"\n");
         }
         return sb.toString();
     }
     static void printHeader(String s){
-        System.out.println("--- " + s + " ---");
+        System.out.println("\n–––– " + s + " ––––\n");
+    }
+    static void printInfo(String s){
+        System.out.println("– " + s + " –");
     }
 }

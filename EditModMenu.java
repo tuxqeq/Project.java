@@ -1,30 +1,18 @@
-import java.util.Scanner;
-
-public class EditModMenu {
+public class EditModMenu  implements Menus{
     public EditModMenu(){
-        CommandImp cmdImp = new CommandImp();
+        displayMenu();
+    }
 
-        System.out.println("""
-                You are in Editing Module.
-                Choose what you want to do
-                Input "new test" to create new test
-                Input "open test" to open test
-                Input "main menu" and press enter two times to go to main menu
-                Input "exit" to exit during program execution
-                """);
+    @Override
+    public void displayMenu() {
+        PrettyOutput.printHeader("You are in Editing Module Menu");
+        PrettyOutput.printEnums(new Inputs[]{Inputs.NEW_TEST, Inputs.OPEN_TEST, Inputs.MAIN_MENU, Inputs.EXIT});
+        menuSwitch(PrettyOutput.nextLine());
+    }
 
-        Scanner scanner = new Scanner(System.in);
-        String inp = scanner.nextLine();
-
-        /*Command command = cmdImp.getCommand(inp);
-        if(command != null) {
-            command.execute();
-        }
-        if(command == null){
-            System.out.println("Invalid command, please try again");
-        }*/
-
-        switch (Inputs.toEnum(inp)) {
+    @Override
+    public void menuSwitch(String input) {
+        switch (Inputs.toEnum(input)) {
             case NEW_TEST:{
                 new NewTest();
                 break;
@@ -34,6 +22,7 @@ public class EditModMenu {
                 break;
             }
             case MAIN_MENU: {
+                PrettyOutput.printInfo("Press enter to proceed");
                 break;
             }
             default: {
@@ -41,7 +30,6 @@ public class EditModMenu {
                 new EditModMenu();
             }
         }
-
     }
 }
 

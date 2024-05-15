@@ -1,23 +1,20 @@
-import java.util.Scanner;
-
-public class MainMenu {
+public class MainMenu implements Menus {
     public MainMenu(){
-        System.out.println("""
-                You are in Main Menu.
-                Choose what you want to do
-                Input "editing module" to go to editing module
-                Input "checking module" to go to checking module
-                Input "exit" to exit during program execution
-                """);
-
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
-
+        displayMenu();
+    }
+    @Override
+    public void displayMenu(){
+        PrettyOutput.printHeader("You are in Main Menu.");
+        PrettyOutput.printEnums(new Inputs[]{Inputs.EDITING_MOD, Inputs.CHECKING_MOD, Inputs.EXIT});
+        menuSwitch(PrettyOutput.nextLine());
+    }
+    @Override
+    public void menuSwitch(String input){
         switch (Inputs.toEnum(input)){
             case EDITING_MOD -> {
                 while(true){
                     new EditModMenu();
-                    if (Inputs.toEnum(scanner.nextLine()) == Inputs.MAIN_MENU){
+                    if (Inputs.toEnum(PrettyOutput.nextLine()) == Inputs.MAIN_MENU){
                         break;
                     }
                 }
@@ -25,11 +22,12 @@ public class MainMenu {
             case CHECKING_MOD -> {
                 while (true) {
                     new CheckModMenu();
-                    if (Inputs.toEnum(scanner.nextLine()) == Inputs.MAIN_MENU){
+                    if (Inputs.toEnum(PrettyOutput.nextLine()) == Inputs.MAIN_MENU){
                         break;
                     }
                 }
             }
+            default -> PrettyOutput.printWarning("Wrong command, try again");
         }
     }
 }

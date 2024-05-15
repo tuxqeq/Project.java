@@ -17,7 +17,9 @@ public class Tests extends File{
                         String fileContent = null;
                         try {
                             fileContent = new String(Files.readAllBytes(path));
-                        } catch (IOException e) {}
+                        } catch (IOException e) {
+                            System.out.println("Tests, second consructor");
+                        }
                         ContentAnalysed content = new ContentAnalysed(fileContent);
                         new Tests(path.getFileName().toString(), content);
                     });
@@ -70,5 +72,6 @@ public class Tests extends File{
 
         return null;
     }
+
 
 }
