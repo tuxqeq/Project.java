@@ -63,6 +63,16 @@ public class NewTest implements WrkngFiles{
         }
         this.name = nameT;
     }
+
+    private boolean testExists(String s) {
+        for(File i : File.files){
+            if(i.toString().equals("\"" + s + "\" ")){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void createDir(String name){
         Path startPath = Paths.get("./"+name+"/");
         if (Files.notExists(startPath)) {
@@ -93,7 +103,7 @@ public class NewTest implements WrkngFiles{
                 PrettyOutput.formatInp(new Inputs[]{Inputs.STOP}));
         if ((Inputs.toEnum(inp)) != Inputs.STOP) {
             if(fileExists(inp)){
-                if(testExists(this.name, inp)){
+                if(testExistsinStd(this.name, inp)){
                     this.test.link("./Students/" + inp);
                     linkToFolder();
                 }else{
@@ -116,7 +126,7 @@ public class NewTest implements WrkngFiles{
         }
         return false;
     }
-    public boolean testExists(String name, String StdName){
+    public boolean testExistsinStd(String name, String StdName){
         for(File iter : File.files){
             if (iter instanceof Solutions && ((Solutions) iter).getSolutions().contains(name) && ((Solutions) iter).getName().equals(StdName)) {
                 return true;
