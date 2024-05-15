@@ -115,7 +115,7 @@ public class StudentModule {
     }*/
 
     public void openFiles(String FldName) {
-        ArrayList<String> names = new ArrayList<>();
+        ArrayList<String> names;
         names = this.solution.findfiles(FldName);
         this.files = names;
         if(names.isEmpty()) {
@@ -178,7 +178,7 @@ public class StudentModule {
 
     void next(Path path) {
         String nameCurrent = path.getFileName().toString();
-        int currentIndex = files.indexOf(nameCurrent);
+        int currentIndex = files.indexOf(checkJAVA(nameCurrent));
         if (currentIndex < files.size() - 1) {
             String nextFile = files.get(currentIndex + 1);
             Path nextPath = Paths.get(pathToCurrentFolder, nextFile);
@@ -191,7 +191,7 @@ public class StudentModule {
     }
     void previous(Path path) {
         String nameCurrent = path.getFileName().toString();
-        int currentIndex = files.indexOf(nameCurrent);
+        int currentIndex = files.indexOf(checkJAVA(nameCurrent));
         if (currentIndex > 0) {
             String prevFile = files.get(currentIndex - 1);
             Path prevPath = Paths.get(pathToCurrentFolder, prevFile);

@@ -23,7 +23,6 @@ public class CheckModMenu implements Menus{
                 break;
             }
             case MAIN_MENU:
-                PrettyOutput.printInfo("Press enter to proceed");
                 break;
             default:{
                 System.out.println("Invalid command, please try again");

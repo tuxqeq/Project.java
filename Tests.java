@@ -34,8 +34,6 @@ public class Tests extends File{
     }
     public void link(String folderName){
         this.linkedPaths.add(folderName + "/" + this.name);
-        //System.out.println(folderName);
-        //System.out.println("List: "+linkedPaths);
     }
 
 
@@ -56,6 +54,7 @@ public class Tests extends File{
     public String toString() {
         return "\"" + name + "\"";
     }
+
     public Tests getNext(){
         Iterator<File> iter = File.files.iterator();
         while (iter.hasNext()) {

@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-interface PrettyOutput {
+interface PrettyOutput <T>{
     static void printWarning(String s){
         System.out.println("\n!!! " + s + " !!!\n");
     }
@@ -34,4 +34,8 @@ interface PrettyOutput {
     static void printInfo(String s){
         System.out.println("– " + s + " –");
     }
+    static void print(String s){
+        System.out.println(s);
+    }
+    T input();
 }
