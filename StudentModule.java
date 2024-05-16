@@ -129,12 +129,15 @@ public class StudentModule {
     }
 
     public void soutFIle(Path path) {
+        PrettyOutput.printBFOutput();
         try {
             Files.lines(path).forEach(System.out::println);
+            PrettyOutput.printAFTOutput();
         } catch (IOException e) {
             PrettyOutput.print("souting file");
         }
         nextPrevious(path);
+
     }
 
     String checkJAVA(String name) {
@@ -172,7 +175,6 @@ public class StudentModule {
         int currentIndex = files.indexOf(checkJAVA(nameCurrent));
         if (currentIndex < files.size() - 1) {
             String nextFile = files.get(currentIndex + 1);
-            System.out.println(pathToCurrentFolder);
             Path nextPath = Paths.get(pathToCurrentFolder, nextFile);
             System.out.println(nextFile);
             soutFIle(nextPath);
@@ -187,7 +189,6 @@ public class StudentModule {
         if (currentIndex > 0) {
             String prevFile = files.get(currentIndex - 1);
             Path prevPath = Paths.get(pathToCurrentFolder, prevFile);
-            System.out.println(prevFile);
             soutFIle(prevPath);
         } else {
             PrettyOutput.printWarning("This is the first file in folder, you can move only forward");

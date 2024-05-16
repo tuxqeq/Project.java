@@ -3,7 +3,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
-abstract class WrkngFiles {
+abstract class WrkngFiles <T>{
     public String name;
     public Tests test;
     abstract void newName();
@@ -72,4 +72,8 @@ abstract class WrkngFiles {
         }
         return filename;
     }
+    public void addToCol(T obj){
+        File.files.add((File) obj);
+    }
+    abstract void ColImp(T obj);
 }

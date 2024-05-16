@@ -30,7 +30,14 @@ public class Tests extends File{
     public Tests(String name, ContentAnalysed content) {
         this.name = name;
         this.content = content;
-        addToCollection(this);
+        new WrkngFiles<Tests>(){
+            @Override
+            void newName() {}
+            @Override
+            void ColImp(Tests obj) {
+                File.files.add(obj);
+            }
+        }.ColImp(this);
     }
     public void link(String folderName){
         this.linkedPaths.add(folderName + "/" + this.name);
@@ -39,7 +46,7 @@ public class Tests extends File{
 
     @Override
     String getPath() {
-        return "./tests/"+name;
+        return "./tests/" + name;
     }
 
     public void setContent(ContentAnalysed content) {
@@ -60,11 +67,13 @@ public class Tests extends File{
         while (iter.hasNext()) {
             File file = iter.next();
             if (file.getPath().equals(getPath())) {
-                File innerIt = iter.next();
-                if (innerIt instanceof Tests) {
-                    return (Tests) innerIt;
-                }else{
-                    return null;
+                if(iter.hasNext()) {
+                    File innerIt = iter.next();
+                    if (innerIt instanceof Tests) {
+                        return (Tests) innerIt;
+                    } else {
+                        return null;
+                    }
                 }
             }
         }

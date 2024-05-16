@@ -1,8 +1,7 @@
 import java.util.Iterator;
 
-public class TaskModule extends WrkngFiles{
+public class TaskModule extends WrkngFiles<Tests>{
     String nameWithTXT;
-    //String name;
     Tests test;
     public TaskModule(){
         PrettyOutput.printHeader("You are in a Task module");
@@ -14,12 +13,10 @@ public class TaskModule extends WrkngFiles{
         PrettyOutput.printInfo("Existing files are printed lower");
         File.files.stream()
                 .filter(file -> file.getPath().startsWith("./tests/"))
-                .forEach(iter -> PrettyOutput.print(" - " + iter.toString()));
+                .forEach(iter -> PrettyOutput.print(" - " + iter));
         PrettyOutput.printInfo("Please enter name of the test which you want to choose");
-        //PrettyOutput.printBfInp("(you can write either type just filename or with \".txt\"");
         String inp = removeTXT(PrettyOutput.printBfInp("(you can write either type just filename or with \".txt\""));
         if(testExists(inp)){
-            //this.nameWithTXT = nameWithTXT;
             this.name = inp;
             this.test = findTest(inp);
             linkedNumAcess();
@@ -30,8 +27,12 @@ public class TaskModule extends WrkngFiles{
         }
 
     }
+
+    @Override
+    void ColImp(Tests obj) {}
+
     public void linkedNumAcess(){
-        PrettyOutput.printInfo("You choosed \"" + name + "\" test");
+        PrettyOutput.NLprintInfo("You chose \"" + name + "\" test");
 
         new Menus(){
             private boolean dontstop = true;

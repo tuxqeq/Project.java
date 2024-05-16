@@ -29,7 +29,7 @@ public class EditModMenu  implements Menus{
                 break;
 
             default:
-                System.out.println("Invalid command, please try again");
+                PrettyOutput.printWarning("Invalid command, please try again");
                 new EditModMenu();
 
         }

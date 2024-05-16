@@ -14,10 +14,7 @@ public class FolderContent implements Comparable<FolderContent>{
         try{
             Files.list(folder)
                     .map(Path::getFileName)
-                    .forEach(iter -> {
-                        files.add(iter.toString());
-                        System.out.println(iter.toString());
-                    });
+                    .forEach(iter -> files.add(iter.toString()));
         }catch (IOException e){
             System.out.println("FolderContent");
         }

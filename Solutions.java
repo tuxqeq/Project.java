@@ -26,9 +26,16 @@ public class Solutions extends File implements Comparable<Solutions>{
                                         .filter(item -> item.equals(sol)).findFirst().get();
                                 found.getSolutions().add(new FolderContent(folder));
                             }else {
-                                File.addToCollection(sol);
-                            }
+                                new WrkngFiles<Solutions>(){
+                                    @Override
+                                    void newName() {}
 
+                                    @Override
+                                    void ColImp(Solutions obj) {
+                                        File.files.add(obj);
+                                    }
+                                }.ColImp(sol);
+                            }
                         });
                     }
                 }
@@ -58,8 +65,8 @@ public class Solutions extends File implements Comparable<Solutions>{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Solutions solutions)) return false;
-        return Objects.equals(studentName, solutions.studentName);
+        if (!(o instanceof Solutions solution)) return false;
+        return Objects.equals(studentName, solution.studentName);
     }
 
     @Override
