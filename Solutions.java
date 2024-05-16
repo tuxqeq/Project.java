@@ -48,7 +48,7 @@ public class Solutions extends File implements Comparable<Solutions>{
 
     @Override
     public String toString() {
-        return "'" + studentName + "'";
+        return studentName;
     }
 
     public String getStudentName(){

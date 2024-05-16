@@ -38,4 +38,13 @@ interface PrettyOutput <T>{
         System.out.println(s);
     }
     T input();
+    static void NLprintInfo(String s){
+        System.out.println("\n– " + s + " –");
+    }
+    static void printInfoNNL(String s){
+        System.out.println("– " + s + " –");
+    }
+    static void printInfoNL(String s){
+        System.out.println("– " + s + " –\n");
+    }
 }

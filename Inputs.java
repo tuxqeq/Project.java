@@ -16,10 +16,11 @@ public enum Inputs {
     GO_TO_STUDENT_MOD("go to student module"),
     MAIN_MENU("go to main menu"),
     NUM_OF_SOLUTIONS("get number of solutions"),
-    NEXT("next"),
+    NEXT("go to next"),
     INFO_ABOUT("info about"),
-    PREVIOUS("previous"),
-    BACK("back"),
+    PREVIOUS("go to previous"),
+    GO_TO_CHOOSING_FOLD("go to choosing folders"),
+    READ_SOL_FILES("read solution files"),
     ;
 
     private final String command;
