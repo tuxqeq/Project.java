@@ -62,24 +62,4 @@ public class Tests extends File{
         return "\"" + name + "\"";
     }
 
-    public Tests getNext(){
-        Iterator<File> iter = File.files.iterator();
-        while (iter.hasNext()) {
-            File file = iter.next();
-            if (file.getPath().equals(getPath())) {
-                if(iter.hasNext()) {
-                    File innerIt = iter.next();
-                    if (innerIt instanceof Tests) {
-                        return (Tests) innerIt;
-                    } else {
-                        return null;
-                    }
-                }
-            }
-        }
-
-        return null;
-    }
-
-
 }

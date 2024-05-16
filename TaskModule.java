@@ -1,8 +1,10 @@
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class TaskModule extends WrkngFiles<Tests>{
     String nameWithTXT;
     Tests test;
+    static ArrayList<Tests> tests = new ArrayList<>();
     public TaskModule(){
         PrettyOutput.printHeader("You are in a Task module");
         newName();
@@ -13,7 +15,10 @@ public class TaskModule extends WrkngFiles<Tests>{
         PrettyOutput.printInfo("Existing files are printed lower");
         File.files.stream()
                 .filter(file -> file.getPath().startsWith("./tests/"))
-                .forEach(iter -> PrettyOutput.print(" - " + iter));
+                .forEach(iter -> {
+                    PrettyOutput.print(" - " + iter);
+                    this.tests.add((Tests) iter);
+                });
         PrettyOutput.printInfo("Please enter name of the test which you want to choose");
         String inp = removeTXT(PrettyOutput.printBfInp("(you can write either type just filename or with \".txt\""));
         if(testExists(inp)){
@@ -78,8 +83,8 @@ public class TaskModule extends WrkngFiles<Tests>{
     }
 
     public void nextTest(){
-        if(test.getNext() != null){
-            this.test = test.getNext();
+        if(getNext() != null){
+            this.test = getNext();
             this.nameWithTXT = test.getName();
             this.name = nameWithTXT.substring(0, nameWithTXT.lastIndexOf('.'));
             System.out.println(this.name);
@@ -88,5 +93,22 @@ public class TaskModule extends WrkngFiles<Tests>{
             PrettyOutput.printWarning("You got to the end of the 'tests' folder, please choose another file");
             newName();
         }
+    }
+    public Tests getNext(){
+        Iterator<Tests> iter = tests.iterator();
+        while (iter.hasNext()) {
+            Tests test = iter.next();
+            if (test.getPath().equals(this.test.getPath())) {
+                if(iter.hasNext()) {
+                    Tests innerIt = iter.next();
+                    if (innerIt != null) {
+                        return innerIt;
+                    } else {
+                        return null;
+                    }
+                }
+            }
+        }
+        return null;
     }
 }

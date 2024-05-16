@@ -23,24 +23,24 @@ abstract class WrkngFiles <T>{
         }
     }
     public void linkToFolder(){
-        String inp = PrettyOutput.printBfInp("Please enter the name of the student to which folder you want to link this test\n"+
-                PrettyOutput.formatInp(new Inputs[]{Inputs.STOP}));
-        if ((Inputs.toEnum(inp)) != Inputs.STOP) {
+        boolean local = true;
+        while (local) {
+            PrettyOutput.print("Please enter the name of the student to which folder you want to link this test\n"+
+                    PrettyOutput.formatInp(new Inputs[]{Inputs.STOP}));
+            String inp = (new Scanner(System.in)).nextLine();
+            if (Inputs.toEnum(inp).equals(Inputs.STOP)) local = false;
+
             String path = "./Students/" + inp;
             if(!fileExists(path)){
                 PrettyOutput.printWarning("Student does not exist");
-                linkToFolder();
+                continue;
             }
             if(fileExists(path + "/" + name)){
                 this.test.link(inp + "/" + this.name);
-                System.out.println("linked to " + this.test + "to " + path + "/" + this.name);
-                linkToFolder();
+                PrettyOutput.printInfo("linked to " + this.test + " to " + path + "/" + this.name);
             }else{
                 PrettyOutput.printWarning("Student has not provided solution for this task");
-                linkToFolder();
             }
-        }else{
-            PrettyOutput.printInfo("Press enter to proceed");
         }
     }
     public static boolean fileExists(String pathToF){
