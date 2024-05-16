@@ -6,5 +6,4 @@ abstract class Content {
 
     abstract String printTypes();
 
-
 }

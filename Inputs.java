@@ -21,6 +21,7 @@ public enum Inputs {
     PREVIOUS("go to previous"),
     GO_TO_CHOOSING_FOLD("go to choosing folders"),
     READ_SOL_FILES("read solution files"),
+    GO_TO_ANOTHER_STD("go to another student")
     ;
 
     private final String command;

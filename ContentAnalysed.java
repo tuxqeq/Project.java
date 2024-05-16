@@ -8,7 +8,8 @@ public class ContentAnalysed {
     public ContentAnalysed(String content) {
         this.content = content;
         analyse(content);
-        //System.out.println(types);
+        //printTypes();
+        //to print content
     }
 
     private void analyse(String content) {
@@ -29,4 +30,11 @@ public class ContentAnalysed {
         }
     }
 
+    public String printTypes() {
+        StringBuilder sb = new StringBuilder();
+        for (Content type : types) {
+            sb.append(type.printTypes()).append("\n");
+        }
+        return sb.toString();
+    }
 }

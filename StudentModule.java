@@ -74,25 +74,21 @@ public class StudentModule {
 
     public void open() {
         PrettyOutput.NLprintInfo("Please choose a folder");
-        PrettyOutput.print("(they are listed lower)");
+        PrettyOutput.print(PrettyOutput.formatInp(new Inputs[]{Inputs.GO_TO_ANOTHER_STD}) + "(they are listed lower)");
         this.solution.getSolutions().forEach(iter -> PrettyOutput.print("- - " + iter.getName()));
 
         String folderName = PrettyOutput.nextLine();
-        if(this.solution.contains(folderName)){
-            openFiles(folderName);
-            this.pathToCurrentFolder = this.solution.getPath();
-        }else{
-            PrettyOutput.printWarning("Folder does not exist, please try again");
-            open();
+        if(Inputs.toEnum(folderName).equals(Inputs.GO_TO_ANOTHER_STD)){
+            newName();
+        }else {
+            if (this.solution.contains(folderName)) {
+                this.pathToCurrentFolder = this.solution.getPath() + folderName;
+                openFiles(folderName);
+            } else {
+                PrettyOutput.printWarning("Folder does not exist, please try again");
+                open();
+            }
         }
-        /*Path folderPath = Paths.get("./Students/" + name + "/" + folderName);
-        this.pathToCurrentFolder = folderPath;
-        if (Files.exists(folderPath)) {
-            openFiles(folderPath);
-        } else {
-            System.out.println("Folder does not exist, please try again");
-            open();
-        }*/
     }
 
     public Solutions findSol(String name) {
@@ -106,17 +102,6 @@ public class StudentModule {
         }
         return foundSolution;
     }
-
-    /*public void openFolder(String folderName) {
-        Path folderPath = Paths.get("./Students/" + name + "/" + folderName);
-        this.pathToCurrentFolder = folderPath;
-        if (Files.exists(folderPath)) {
-            openFile(folderPath);
-        } else {
-            System.out.println("Folder does not exist, please try again");
-            open();
-        }
-    }*/
 
     public void openFiles(String FldName) {
         ArrayList<String> names;
@@ -162,10 +147,7 @@ public class StudentModule {
 
 
     void nextPrevious(Path path) {
-        /*System.out.println("If you want to go to the next file, please input \"next\"\n" +
-                "And if you want to go to the previous file, please input \"previous\"\n" +
-                "If you want to go back to choosing folders, please input \"back\"");*/
-        PrettyOutput.printEnums(new Inputs[]{Inputs.NEXT, Inputs.PREVIOUS, Inputs.GO_TO_CHOOSING_FOLD});
+        PrettyOutput.printEnums(new Inputs[]{Inputs.NEXT, Inputs.PREVIOUS, Inputs.GO_TO_CHOOSING_FOLD, Inputs.GO_TO_ANOTHER_STD});
         switch (Inputs.toEnum(PrettyOutput.nextLine())) {
             case NEXT:
                 next(path);
@@ -175,6 +157,10 @@ public class StudentModule {
                 break;
             case GO_TO_CHOOSING_FOLD:
                 open();
+                break;
+            case GO_TO_ANOTHER_STD:
+                newName();
+                break;
             default:
                 PrettyOutput.printWarning("Invalid command, try again");
                 nextPrevious(path);
@@ -186,8 +172,8 @@ public class StudentModule {
         int currentIndex = files.indexOf(checkJAVA(nameCurrent));
         if (currentIndex < files.size() - 1) {
             String nextFile = files.get(currentIndex + 1);
+            System.out.println(pathToCurrentFolder);
             Path nextPath = Paths.get(pathToCurrentFolder, nextFile);
-            //TODO тут мистейк
             System.out.println(nextFile);
             soutFIle(nextPath);
         } else {
